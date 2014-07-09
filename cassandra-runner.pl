@@ -245,8 +245,23 @@ unless ($opt_nossh) {
 	unless (-r $rsa_key) {
 		system("dropbearkey -t rsa -f $rsa_key");
 	}
-	system("/usr/sbin/dropbear -r $rsa_key -s -g -p $listen:22");
+	system("/usr/sbin/dropbear -r $rsa_key -p $listen:22");
 }
+
+
+#
+# Set up OpsCenter.  Only the first node gets opsceneterd.  The rest just get agents
+#
+
+system("echo 'stomp_interface: $seeds' | sudo tee -a /var/lib/datastax-agent/conf/address.yaml");
+system("service datastax-agent start");
+
+unless (defined $ENV{'SEEDS'}) {
+	system("echo 'seed_hosts = $listen' | sudo tee -a etc/opscenter/clusters/Cassandra_in_Docker.conf");
+	system("service opscenterd start");
+}		
+
+
 
 # try to drop root privileges before running C*
 # if it fails for whatever reason, continue as root

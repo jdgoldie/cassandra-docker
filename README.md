@@ -1,12 +1,57 @@
-Fork of Al Tobey's cassandra-docker project.
+### cassandra-docker
 
-Follow his instructions to build the image. (https://github.com/tobert/cassandra-docker)
+1. Either `su` or make sure `DOCKER_HOST` is exported
 
-Start a cluster with start_cluster.sh [1,3,5,7] for the number of nodes
+2. Build the cassandra docker image
 
-Create client container with client.sh.  The $IP environment variable will be the IP address of the cass0 node.
+```
+docker build -t dsc208 .
+```
 
-Stop the cluster with stop_cluster.
+#### Use
 
-Data is persisted to disk across restarts.
+- Start a cluster of 1,3,5, or 7 nodes.
+
+```
+start_cluster.sh [1,3,5,7]
+```
+
+Data is written to the `data/` directory and persists across cluster restarts.
+
+- OpsCenter 
+
+OpsCenter is running on the first node that is created.  The IP/Port is returned by the `start_cluster.sh` script
+
+
+- Stop a cluster
+
+```
+stop_cluster.sh
+```
+
+- Start a client container
+
+```
+client.sh
+```
+
+The client container links to the `cass0` container that contains the first cassandra node.
+
+
+- Check the cluster's status
+
+```
+watch -n 5 nodetool -h $IP status
+```
+
+The environment variable `IP` has the IP address of the `cass0` node
+
+- SSH
+
+The `root` user has password `docker` and `dropbear` is running on port 22 of each container for ssh access.
+
+
+
+This project is forked from Al Tobey's cassandra-docker project at https://github.com/tobert/cassandra-docker
+
 
