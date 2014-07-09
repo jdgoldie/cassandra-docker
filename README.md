@@ -37,8 +37,7 @@ client.sh
 
 The client container links to the `cass0` container that contains the first cassandra node.
 
-
-- Check the cluster's status
+To check the cluster's status from the client container
 
 ```
 watch -n 5 nodetool -h $IP status
