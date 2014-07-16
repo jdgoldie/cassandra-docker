@@ -1,4 +1,4 @@
-FROM       ubuntu:raring
+FROM       ubuntu
 MAINTAINER Al Tobey <atobey@datastax.com>
 
 VOLUME ["/var/lib/cassandra"]
@@ -20,4 +20,3 @@ ADD Cassandra_in_Docker.conf /etc/opscenter/clusters/
 
 # storage port, JMX, Thrift, CQL Native, OpsCenter, Agents, SSH
 EXPOSE 7000 7199 9160 9042 8888
-
