@@ -257,7 +257,7 @@ system("echo 'stomp_interface: $seeds' | sudo tee -a /var/lib/datastax-agent/con
 system("service datastax-agent start");
 
 unless (defined $ENV{'SEEDS'}) {
-	system("echo 'seed_hosts = $listen' | sudo tee -a etc/opscenter/clusters/Cassandra_in_Docker.conf");
+	system("echo 'seed_hosts = $listen' | sudo tee -a /etc/opscenter/clusters/Cassandra_in_Docker.conf");
 	system("service opscenterd start");
 }		
 

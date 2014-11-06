@@ -5,7 +5,7 @@
 2. Build the cassandra docker image
 
 ```
-docker build -t dsc208 .
+docker build -t dsc21 .
 ```
 
 #### Use
