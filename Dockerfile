@@ -1,4 +1,4 @@
-FROM       ubuntu
+FROM       dockerfile/java:oracle-java7
 MAINTAINER Al Tobey <atobey@datastax.com>
 
 VOLUME ["/var/lib/cassandra"]
@@ -11,11 +11,11 @@ RUN apt-key add /root/datastax-repo_key
 RUN rm -f /root/datastax-repo_key
 RUN apt-get update
 RUN apt-get dist-upgrade -y
-RUN apt-get install -y libyaml-perl busybox dropbear net-tools openjdk-7-jre-headless libjna-java dsc20 opscenter sudo datastax-agent
+RUN apt-get install -y libyaml-perl busybox dropbear net-tools libjna-java dsc21 opscenter sudo datastax-agent
 RUN apt-get clean
 RUN mkdir -p /root/.ssh
 RUN echo 'root:docker' | chpasswd
-RUN mkdir -p /etc/opscenter/clusters
+RUN mkdir -p /etc/opscenter/clusters,.
 ADD Cassandra_in_Docker.conf /etc/opscenter/clusters/
 
 # storage port, JMX, Thrift, CQL Native, OpsCenter, Agents, SSH
